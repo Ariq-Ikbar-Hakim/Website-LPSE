@@ -21,7 +21,7 @@ class EmailService
     {
         $resetUrl = APP_URL . '/index.php?page=reset_password&token=' . urlencode($token);
 
-        $subject = 'Reset Password - LPSE APELBAJA';
+        $subject = 'Reset Password - LPSE BEDI-PBJ';
         
         // HTML Message
         $messageHTML = "<h3>Halo {$toName},</h3>";
@@ -30,7 +30,7 @@ class EmailService
         $messageHTML .= "<p><a href='{$resetUrl}' style='display:inline-block;padding:10px 20px;background-color:#2563eb;color:#fff;text-decoration:none;border-radius:5px;'>Reset Password</a></p>";
         $messageHTML .= "<p>Atau copy link berikut: <br><a href='{$resetUrl}'>{$resetUrl}</a></p>";
         $messageHTML .= "<p>Link ini valid selama " . RESET_TOKEN_EXPIRY_HOURS . " jam.</p>";
-        $messageHTML .= "<br><p>Salam,<br>Tim LPSE APELBAJA</p>";
+        $messageHTML .= "<br><p>Salam,<br>Tim LPSE BEDI-PBJ</p>";
 
         // Plain text fallback
         $messagePlain = "Halo {$toName},\n\n";
@@ -38,7 +38,7 @@ class EmailService
         $messagePlain .= "Silakan buka link berikut untuk mereset password:\n";
         $messagePlain .= $resetUrl . "\n\n";
         $messagePlain .= "Link ini valid selama " . RESET_TOKEN_EXPIRY_HOURS . " jam.\n";
-        $messagePlain .= "Salam,\nTim LPSE APELBAJA";
+        $messagePlain .= "Salam,\nTim LPSE BEDI-PBJ";
 
         // Jika PHPMailer ada
         if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
@@ -86,36 +86,36 @@ class EmailService
     public function sendVerificationEmail(string $toEmail, string $toName, string $jabatan): bool
     {
         $loginUrl = APP_URL . '/index.php?page=login';
-        $subject = 'Akun Anda Telah Dikonfirmasi - LPSE APELBAJA';
+        $subject = 'Akun Anda Telah Dikonfirmasi - LPSE BEDI-PBJ';
         
         $messageHTML = "<h3>Halo {$toName},</h3>";
         $messageHTML .= "<p>Pendaftaran akun Anda sebagai <b>{$jabatan}</b> telah disetujui oleh Administrator.</p>";
         $messageHTML .= "<p>Anda sekarang sudah bisa masuk ke dalam sistem menggunakan email dan password yang telah didaftarkan.</p>";
         $messageHTML .= "<p><a href='{$loginUrl}' style='display:inline-block;padding:10px 20px;background-color:#059669;color:#fff;text-decoration:none;border-radius:5px;'>Login Sekarang</a></p>";
-        $messageHTML .= "<br><p>Salam,<br>Tim LPSE APELBAJA</p>";
+        $messageHTML .= "<br><p>Salam,<br>Tim LPSE BEDI-PBJ</p>";
 
         $messagePlain = "Halo {$toName},\n\n";
         $messagePlain .= "Pendaftaran akun Anda sebagai {$jabatan} telah disetujui oleh Administrator.\n";
         $messagePlain .= "Anda sekarang sudah bisa masuk ke dalam sistem menggunakan email dan password yang telah didaftarkan.\n\n";
         $messagePlain .= "Login di sini: {$loginUrl}\n\n";
-        $messagePlain .= "Salam,\nTim LPSE APELBAJA";
+        $messagePlain .= "Salam,\nTim LPSE BEDI-PBJ";
 
         return $this->sendActualEmail($toEmail, $toName, $subject, $messageHTML, $messagePlain);
     }
 
     public function sendRejectionEmail(string $toEmail, string $toName, string $jabatan): bool
     {
-        $subject = 'Status Pendaftaran Akun - LPSE APELBAJA';
+        $subject = 'Status Pendaftaran Akun - LPSE BEDI-PBJ';
         
         $messageHTML = "<h3>Halo {$toName},</h3>";
         $messageHTML .= "<p>Mohon maaf, pendaftaran akun Anda sebagai <b>{$jabatan}</b> belum dapat disetujui (dibatalkan) oleh Administrator.</p>";
         $messageHTML .= "<p>Hal ini mungkin dikarenakan adanya kesalahan atau ketidaksesuaian pada data Anda. Silakan periksa kembali data Anda dan lakukan pendaftaran ulang dengan data yang benar, atau hubungi pihak Administrator untuk informasi lebih lanjut.</p>";
-        $messageHTML .= "<br><p>Salam,<br>Tim LPSE APELBAJA</p>";
+        $messageHTML .= "<br><p>Salam,<br>Tim LPSE BEDI-PBJ</p>";
 
         $messagePlain = "Halo {$toName},\n\n";
         $messagePlain .= "Mohon maaf, pendaftaran akun Anda sebagai {$jabatan} belum dapat disetujui (dibatalkan) oleh Administrator.\n";
         $messagePlain .= "Hal ini mungkin dikarenakan adanya kesalahan atau ketidaksesuaian pada data Anda. Silakan periksa kembali data Anda dan lakukan pendaftaran ulang dengan data yang benar, atau hubungi pihak Administrator untuk informasi lebih lanjut.\n\n";
-        $messagePlain .= "Salam,\nTim LPSE APELBAJA";
+        $messagePlain .= "Salam,\nTim LPSE BEDI-PBJ";
 
         return $this->sendActualEmail($toEmail, $toName, $subject, $messageHTML, $messagePlain);
     }
@@ -161,24 +161,24 @@ class EmailService
 
     public function sendTransferNotificationToTarget(string $toEmail, string $toName, string $namaPaket, string $roleBaru): bool
     {
-        $subject = 'Pemberitahuan Limpahan Paket - LPSE APELBAJA';
+        $subject = 'Pemberitahuan Limpahan Paket - LPSE BEDI-PBJ';
         
         $messageHTML = "<h3>Halo {$toName},</h3>";
         $messageHTML .= "<p>Anda telah ditunjuk sebagai <b>{$roleBaru}</b> untuk paket pekerjaan <b>{$namaPaket}</b> melalui proses Pengajuan Transfer Paket yang disetujui oleh Admin.</p>";
-        $messageHTML .= "<p>Silakan login ke aplikasi APELBAJA untuk melihat paket tersebut di dashboard Anda.</p>";
-        $messageHTML .= "<br><p>Salam,<br>Tim LPSE APELBAJA</p>";
+        $messageHTML .= "<p>Silakan login ke aplikasi BEDI-PBJ untuk melihat paket tersebut di dashboard Anda.</p>";
+        $messageHTML .= "<br><p>Salam,<br>Tim LPSE BEDI-PBJ</p>";
 
         $messagePlain = "Halo {$toName},\n\n";
         $messagePlain .= "Anda telah ditunjuk sebagai {$roleBaru} untuk paket pekerjaan {$namaPaket} melalui proses Pengajuan Transfer Paket yang disetujui oleh Admin.\n";
-        $messagePlain .= "Silakan login ke aplikasi APELBAJA untuk melihat paket tersebut di dashboard Anda.\n\n";
-        $messagePlain .= "Salam,\nTim LPSE APELBAJA";
+        $messagePlain .= "Silakan login ke aplikasi BEDI-PBJ untuk melihat paket tersebut di dashboard Anda.\n\n";
+        $messagePlain .= "Salam,\nTim LPSE BEDI-PBJ";
 
         return $this->sendActualEmail($toEmail, $toName, $subject, $messageHTML, $messagePlain);
     }
 
     public function sendTransferNotificationToSender(string $toEmail, string $toName, string $namaPaket, string $status, string $catatan = ''): bool
     {
-        $subject = 'Status Pengajuan Transfer Paket - LPSE APELBAJA';
+        $subject = 'Status Pengajuan Transfer Paket - LPSE BEDI-PBJ';
         
         $statusText = strtoupper($status);
         $messageHTML = "<h3>Halo {$toName},</h3>";
@@ -188,8 +188,8 @@ class EmailService
             $messageHTML .= "<p>Catatan Admin: <i>{$catatan}</i></p>";
         }
         
-        $messageHTML .= "<p>Silakan login ke aplikasi APELBAJA untuk melihat detail riwayat pengajuan Anda.</p>";
-        $messageHTML .= "<br><p>Salam,<br>Tim LPSE APELBAJA</p>";
+        $messageHTML .= "<p>Silakan login ke aplikasi BEDI-PBJ untuk melihat detail riwayat pengajuan Anda.</p>";
+        $messageHTML .= "<br><p>Salam,<br>Tim LPSE BEDI-PBJ</p>";
 
         $messagePlain = "Halo {$toName},\n\n";
         $messagePlain .= "Pengajuan transfer Anda untuk paket {$namaPaket} telah {$statusText} oleh Administrator.\n";
@@ -198,8 +198,8 @@ class EmailService
             $messagePlain .= "Catatan Admin: {$catatan}\n";
         }
         
-        $messagePlain .= "Silakan login ke aplikasi APELBAJA untuk melihat detail riwayat pengajuan Anda.\n\n";
-        $messagePlain .= "Salam,\nTim LPSE APELBAJA";
+        $messagePlain .= "Silakan login ke aplikasi BEDI-PBJ untuk melihat detail riwayat pengajuan Anda.\n\n";
+        $messagePlain .= "Salam,\nTim LPSE BEDI-PBJ";
 
         return $this->sendActualEmail($toEmail, $toName, $subject, $messageHTML, $messagePlain);
     }

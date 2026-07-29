@@ -81,6 +81,10 @@ switch ($page) {
         $controller = new BeritaAcaraController($conn);
         $controller->sign();
         break;
+    case 'ba_manual_upload':
+        $controller = new BeritaAcaraController($conn);
+        $controller->uploadManual();
+        break;
 
     // Komentar
     case 'komentar_tambah':

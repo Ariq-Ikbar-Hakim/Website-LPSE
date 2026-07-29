@@ -24,4 +24,4 @@ define('SMTP_SECURE',   'tls');
 
 // ── Identitas Pengirim ───────────────────────────────────────
 define('MAIL_FROM_ADDRESS', 'ariq20055@gmail.com');
-define('MAIL_FROM_NAME',    'LPSE APELBAJA');
+define('MAIL_FROM_NAME',    'LPSE BEDI-PBJ');

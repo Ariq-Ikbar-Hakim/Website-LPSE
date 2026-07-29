@@ -14,15 +14,13 @@
               -translate-x-full lg:translate-x-0">
 
     <!-- Logo Header -->
-    <div class="p-5 border-b border-slate-700/60">
+    <div class="p-4 border-b border-slate-700/60">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg flex-shrink-0">
-                    <img src="assets/logo.png" alt="APELBAJA" class="w-8 h-8 object-contain">
-                </div>
+                <img src="assets/logo.png" alt="Bangkalan Elektronik Digitalisasi Informasi PBJ" class="w-10 h-10 object-contain rounded-xl flex-shrink-0">
                 <div>
-                    <h1 class="font-bold text-base tracking-tight leading-tight">APELBAJA</h1>
-                    <p class="text-[11px] text-slate-400 leading-tight">Kab. Bangkalan</p>
+                    <h1 class="font-bold text-[11px] tracking-tight leading-tight text-white">Bangkalan Elektronik<br>Digitalisasi Informasi PBJ</h1>
+                    <p class="text-[9px] text-slate-400 leading-tight mt-0.5">Kab. Bangkalan</p>
                 </div>
             </div>
             <!-- Close button (mobile only) -->

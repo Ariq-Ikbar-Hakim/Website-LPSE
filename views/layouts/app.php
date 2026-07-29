@@ -16,13 +16,11 @@
 
     <!-- Sidebar -->
     <aside class="sidebar w-64 bg-slate-900 h-screen fixed top-0 left-0 overflow-y-auto shadow-xl z-20 text-slate-300 flex flex-col">
-        <div class="p-6 flex items-center gap-3 border-b border-slate-800">
-            <div class="bg-blue-600 p-2 rounded-lg text-white">
-                <i class="fas fa-file-contract text-xl"></i>
-            </div>
+        <div class="p-4 flex items-center gap-3 border-b border-slate-800">
+            <img src="assets/logo.png" alt="Bangkalan Elektronik Digitalisasi Informasi PBJ" class="w-10 h-10 object-contain rounded-xl flex-shrink-0">
             <div>
-                <h1 class="text-white font-bold text-lg leading-tight tracking-wide">APELBAJA</h1>
-                <div class="text-xs text-slate-400">v<?= APP_VERSION ?></div>
+                <h1 class="text-white font-bold text-[11px] leading-tight tracking-wide">Bangkalan Elektronik<br>Digitalisasi Informasi PBJ</h1>
+                <div class="text-[9px] text-slate-400 mt-0.5">Kab. Bangkalan</div>
             </div>
         </div>
 
@@ -144,7 +142,7 @@
         
         <!-- Footer -->
         <footer class="bg-white border-t border-slate-200 py-4 px-8 text-sm text-slate-500 flex justify-between items-center">
-            <div>&copy; <?= date('Y') ?> Biro Pengadaan Barang/Jasa Setda Prov. Jatim</div>
+            <div>&copy; <?= date('Y') ?> Biro Pengadaan Barang/Jasa Kab. Bangkalan</div>
             <div class="font-medium text-slate-400">Versi <?= APP_VERSION ?></div>
         </footer>
     </main>

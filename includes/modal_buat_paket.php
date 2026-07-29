@@ -37,7 +37,7 @@
                                 </a>
                             </div>
                         </div>
-                        <p class="text-[10px] text-slate-400 mt-1.5"><i class="fas fa-info-circle mr-1"></i>Draft paket dapat ditarik ke APELBAJA H+1 setelah input SPSE</p>
+                        <p class="text-[10px] text-slate-400 mt-1.5"><i class="fas fa-info-circle mr-1"></i>Draft paket dapat ditarik ke BEDI-PBJ H+1 setelah input SPSE</p>
                     </div>
                 </div>
 

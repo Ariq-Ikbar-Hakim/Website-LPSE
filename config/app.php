@@ -1,13 +1,15 @@
 <?php
 /**
- * Konfigurasi Aplikasi LPSE APELBAJA
+ * Konfigurasi Aplikasi LPSE Bangkalan — Elektronik Digitalisasi Informasi PBJ
  */
 
 // ── Proteksi akses langsung ──────────────────────────────────
 defined('BASEPATH') or die('No direct script access allowed');
 
 // ── Informasi Aplikasi ───────────────────────────────────────
-define('APP_NAME',    'LPSE APELBAJA');
+define('APP_NAME',    'LPSE Bangkalan');
+define('APP_SHORT',   'Bangkalan Elektronik Digitalisasi Informasi PBJ');
+define('APP_FULLNAME', 'Bangkalan Elektronik Digitalisasi Informasi Pengadaan Barang dan Jasa');
 define('APP_VERSION', '2.0.0');
 define('APP_URL',     'http://localhost/LPSE');
 define('APP_ENV',     'development'); // 'development' | 'production'

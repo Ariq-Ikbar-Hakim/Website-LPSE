@@ -392,7 +392,7 @@ $is_gagal = $paket['status'] === 'gagal_pemilihan';
                                     <i class="fas fa-external-link-alt mr-1"></i> Buka SIRUP
                                 </a>
                             </div>
-                            <p class="text-xs text-slate-400 mt-1">Draft paket dapat di tarik ke APELBAJA satu hari setelah tanggal input di SPSE</p>
+                            <p class="text-xs text-slate-400 mt-1">Draft paket dapat di tarik ke BEDI-PBJ satu hari setelah tanggal input di SPSE</p>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">URL Draft Paket</label>

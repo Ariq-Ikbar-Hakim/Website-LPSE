@@ -36,9 +36,12 @@ ob_start();
 <div class="w-full max-w-xl">
 
     <!-- Logo -->
-    <div class="flex justify-center items-center mb-8">
-        <img src="assets/images/logo.png" alt="APEL BAJA Tender" class="h-20 w-auto drop-shadow-lg" onerror="this.style.display='none'">
-        <div class="text-white text-3xl font-bold ml-3">APELBAJA</div>
+    <div class="flex flex-col justify-center items-center mb-8 gap-3">
+        <img src="assets/logo.png" alt="Bangkalan Elektronik Digitalisasi Informasi PBJ" class="h-20 w-auto drop-shadow-lg">
+        <div class="text-center">
+            <div class="text-white text-xl font-extrabold tracking-wide">Bangkalan Elektronik<br>Digitalisasi Informasi PBJ</div>
+            <div class="text-slate-400 text-xs mt-1">Kab. Bangkalan</div>
+        </div>
     </div>
 
     <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-8">

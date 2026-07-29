@@ -26,18 +26,19 @@
 <div class="w-full max-w-md">
 
     <!-- Logo -->
-    <div class="flex justify-center items-center mb-8">
-        <img src="assets/images/logo.png"
-             alt="APEL BAJA Tender"
-             class="h-20 w-auto drop-shadow-lg" onerror="this.style.display='none'">
-        <div class="text-white text-3xl font-bold ml-3">APELBAJA</div>
+    <div class="flex flex-col justify-center items-center mb-8 gap-3">
+        <img src="assets/logo.png" alt="Bangkalan Elektronik Digitalisasi Informasi PBJ" class="h-20 w-auto drop-shadow-lg">
+        <div class="text-center">
+            <div class="text-white text-xl font-extrabold tracking-wide">Bangkalan Elektronik<br>Digitalisasi Informasi PBJ</div>
+            <div class="text-slate-400 text-xs mt-1">Kab. Bangkalan</div>
+        </div>
     </div>
 
     <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-8">
 
         <div class="text-center mb-8">
-            <h3 class="text-2xl font-semibold text-white">Selamat Datang di LPSE</h3>
-            <p class="text-slate-400 mt-2">Masuk ke sistem pengadaan</p>
+            <h3 class="text-2xl font-semibold text-white">Selamat Datang</h3>
+            <p class="text-slate-400 mt-2">Masuk ke sistem pengadaan Kab. Bangkalan</p>
         </div>
 
         <?php if (flashHas('error')): ?>
@@ -58,7 +59,7 @@
             <input type="hidden" name="recaptcha_v3_token" id="recaptcha_v3_token">
 
             <div>
-                <label class="block text-sm font-medium text-slate-300 mb-2">NIP / Username</label>
+                <label class="block text-sm font-medium text-slate-300 mb-2">NIP</label>
                 <input type="text" name="nip" id="nip"
                        class="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 transition"
                        required autocomplete="off">

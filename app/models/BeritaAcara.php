@@ -33,19 +33,21 @@ class BeritaAcara
 
     public function create(array $data): int|false
     {
+        $jenisBa = $data['jenis_ba'] ?? 'otomatis';
         $stmt = $this->db->prepare(
             'INSERT INTO berita_acara
-             (paket_id, nomor_ba, tanggal_ba, konten, hash_konten, status)
-             VALUES (?, ?, ?, ?, ?, ?)'
+             (paket_id, nomor_ba, tanggal_ba, konten, hash_konten, status, jenis_ba)
+             VALUES (?, ?, ?, ?, ?, ?, ?)'
         );
         $stmt->bind_param(
-            'isssss',
+            'issssss',
             $data['paket_id'],
             $data['nomor_ba'],
             $data['tanggal_ba'],
             $data['konten'],
             $data['hash_konten'],
-            $data['status']
+            $data['status'],
+            $jenisBa
         );
         $ok = $stmt->execute();
         $id = $stmt->insert_id;
@@ -73,9 +75,13 @@ class BeritaAcara
 
     public function getAllCompleted(array $filters = []): array
     {
-        $sql = "SELECT ba.*, p.nama_paket, p.kode_rup
+        $sql = "SELECT ba.*, p.nama_paket, p.kode_rup,
+                       u_pp.nama AS nama_pp, u_pp.opd AS opd_pp,
+                       u_ppk.nama AS nama_ppk, u_ppk.opd AS opd_ppk
              FROM berita_acara ba
              JOIN paket p ON ba.paket_id = p.id
+             LEFT JOIN users u_pp ON p.pp_id = u_pp.id
+             LEFT JOIN users u_ppk ON p.ppk_id = u_ppk.id
              WHERE (ba.file_laporan IS NOT NULL OR ba.status IN ('tanda_tangan_kedua', 'selesai'))";
         
         $params = [];

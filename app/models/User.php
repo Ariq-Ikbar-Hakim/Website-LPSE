@@ -47,6 +47,21 @@ class User
         return $rows;
     }
 
+    // ── Ambil semua user PPK yang aktif (untuk dropdown) ──────
+    public function getActivePPK(): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT id, nama, opd, nip
+             FROM users
+             WHERE jabatan_aktif = 'PPK' AND status_aktif = 1
+             ORDER BY nama ASC"
+        );
+        $stmt->execute();
+        $rows = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $rows;
+    }
+
     // ── Ambil semua user aktif (admin view) ──────────────────
     public function getAll(string $filter = '', int $limit = 0, int $offset = 0): array
     {

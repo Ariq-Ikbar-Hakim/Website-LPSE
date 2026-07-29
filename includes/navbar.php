@@ -12,7 +12,7 @@
         <div class="text-sm text-slate-500">
             <span class="font-semibold text-slate-700">UKPBJ</span>
             <span class="mx-2 text-slate-300 hidden sm:inline">|</span>
-            <span class="hidden sm:inline">Provinsi Jawa Timur</span>
+            <span class="hidden sm:inline">Kab. Bangkalan</span>
         </div>
     </div>
 

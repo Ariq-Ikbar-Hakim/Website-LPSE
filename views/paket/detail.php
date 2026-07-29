@@ -346,8 +346,38 @@ ob_start();
 
             <?php if ($isComplete): ?>
                 <div class="bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl p-4 mb-4">
-                    <i class="fas fa-check-circle mr-2"></i> Berita Acara telah selesai ditandatangani.
+                    <i class="fas fa-check-circle mr-2"></i> Berita Acara telah selesai.
                 </div>
+                
+                <div class="bg-white border border-slate-200 rounded-xl p-5 mb-4 text-left shadow-sm">
+                    <h4 class="font-bold text-slate-800 mb-3 border-b pb-2">Informasi Pembuatan Berita Acara</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="block text-slate-500 font-semibold mb-1">Pejabat Pembuat Komitmen (PPK)</span>
+                            <span class="text-slate-800 font-bold"><?= htmlspecialchars($paket['nama_ppk']) ?></span>
+                            <span class="block text-xs text-slate-400 mt-0.5"><i class="fas fa-building mr-1"></i><?= htmlspecialchars($paket['opd_ppk']) ?></span>
+                        </div>
+                        <div>
+                            <span class="block text-slate-500 font-semibold mb-1">Pejabat Pengadaan (PP)</span>
+                            <span class="text-slate-800 font-bold"><?= htmlspecialchars($paket['nama_pp']) ?></span>
+                            <span class="block text-xs text-slate-400 mt-0.5"><i class="fas fa-building mr-1"></i><?= htmlspecialchars($paket['opd_pp']) ?></span>
+                        </div>
+                    </div>
+                    <?php if ($ba && $ba['jenis_ba'] === 'manual'): ?>
+                    <div class="mt-4 pt-3 border-t border-slate-100">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-100">
+                            <i class="fas fa-info-circle"></i> Dokumen ini diunggah secara manual (luar sistem) oleh PP: <?= htmlspecialchars($paket['nama_pp']) ?>
+                        </span>
+                    </div>
+                    <?php else: ?>
+                    <div class="mt-4 pt-3 border-t border-slate-100">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-100">
+                            <i class="fas fa-shield-check"></i> Dokumen ditandatangani secara digital (otomatis) via sistem
+                        </span>
+                    </div>
+                    <?php endif; ?>
+                </div>
+
                 <?php if (!empty($ba['file_laporan'])): ?>
                 <div class="mt-4">
                     <a href="<?= APP_URL . '/' . e($ba['file_laporan']) ?>" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-md transition">
@@ -356,20 +386,69 @@ ob_start();
                 </div>
                 <?php endif; ?>
             <?php elseif ($canSign): ?>
-                <form action="index.php?page=ba_sign" method="POST" enctype="multipart/form-data" class="space-y-4">
-                    <?= csrfField() ?>
-                    <input type="hidden" name="paket_id" value="<?= $paket['id'] ?>">
-                    
-                    <div class="text-left bg-amber-50 p-4 rounded-xl border border-amber-200">
-                        <label class="block text-sm font-bold text-amber-900 mb-2">Unggah Tanda Tangan Anda</label>
-                        <input type="file" name="signature_image" accept="image/png, image/jpeg" required class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-100 file:text-amber-700 hover:file:bg-amber-200 cursor-pointer">
-                        <p class="text-xs text-amber-700 mt-2">Format: PNG/JPG. Gambar tanda tangan akan diproses menjadi QR Code otomatis.</p>
+                <?php if ($role === 'PP'): ?>
+                    <div id="ba-options" class="flex gap-2 mb-6 justify-center">
+                        <button type="button" onclick="document.getElementById('form-otomatis').style.display='block'; document.getElementById('form-manual').style.display='none';" class="bg-amber-100 hover:bg-amber-200 text-amber-700 px-4 py-2 rounded-lg font-semibold text-sm transition">Tanda Tangan Digital (Sistem)</button>
+                        <button type="button" onclick="document.getElementById('form-otomatis').style.display='none'; document.getElementById('form-manual').style.display='block';" class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-lg font-semibold text-sm transition">Unggah BA Manual</button>
                     </div>
+                    
+                    <form id="form-otomatis" action="index.php?page=ba_sign" method="POST" enctype="multipart/form-data" class="space-y-4">
+                        <?= csrfField() ?>
+                        <input type="hidden" name="paket_id" value="<?= $paket['id'] ?>">
+                        
+                        <div class="text-left bg-amber-50 p-4 rounded-xl border border-amber-200">
+                            <label class="block text-sm font-bold text-amber-900 mb-2">Unggah Tanda Tangan Anda</label>
+                            <input type="file" name="signature_image" accept="image/png, image/jpeg" required class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-100 file:text-amber-700 hover:file:bg-amber-200 cursor-pointer">
+                            <p class="text-xs text-amber-700 mt-2">Format: PNG/JPG. Gambar tanda tangan akan diproses menjadi QR Code otomatis.</p>
+                        </div>
 
-                    <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menandatangani secara digital?');" class="w-full <?= $role === 'PPK' ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-200' : 'bg-blue-500 hover:bg-blue-600 shadow-blue-200' ?> text-white px-8 py-3 rounded-xl font-bold shadow-lg transition">
-                        <?= $role === 'PPK' ? '<i class="fas fa-check-double mr-2"></i>Selesai' : '<i class="fas fa-paper-plane mr-2"></i>Kirim' ?> (<?= $role ?>)
-                    </button>
-                </form>
+                        <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menandatangani secara digital?');" class="w-full bg-blue-500 hover:bg-blue-600 shadow-blue-200 text-white px-8 py-3 rounded-xl font-bold shadow-lg transition">
+                            <i class="fas fa-paper-plane mr-2"></i>Kirim (<?= $role ?>)
+                        </button>
+                    </form>
+
+                    <form id="form-manual" action="index.php?page=ba_manual_upload" method="POST" enctype="multipart/form-data" class="space-y-4 text-left" style="display: none;">
+                        <?= csrfField() ?>
+                        <input type="hidden" name="paket_id" value="<?= $paket['id'] ?>">
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-1">Nomor Berita Acara</label>
+                                <input type="text" name="nomor_ba" required class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-1">Tanggal Berita Acara</label>
+                                <input type="date" name="tanggal_ba" required class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-1">Isi Berita Acara</label>
+                                <textarea name="konten_ba" required rows="5" placeholder="Ketik isi/konten Berita Acara di sini..." class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition"></textarea>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                                <label class="block text-sm font-bold text-blue-900 mb-2">Unggah Tanda Tangan Anda (PP)</label>
+                                <input type="file" name="signature_image" accept="image/png, image/jpeg" required class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer">
+                                <p class="text-xs text-blue-700 mt-2">Format: PNG/JPG. Gambar tanda tangan Anda akan otomatis diproses menjadi QR Code pada PDF.</p>
+                            </div>
+                        </div>
+                        <button type="submit" onclick="return confirm('Apakah Anda yakin data sudah benar? Berita Acara akan dibuat dan langsung diselesaikan.');" class="w-full bg-blue-500 hover:bg-blue-600 shadow-blue-200 text-white px-8 py-3 rounded-xl font-bold shadow-lg transition">
+                            <i class="fas fa-check-circle mr-2"></i>Buat & Selesaikan BA Manual
+                        </button>
+                    </form>
+                <?php else: ?>
+                    <form action="index.php?page=ba_sign" method="POST" enctype="multipart/form-data" class="space-y-4">
+                        <?= csrfField() ?>
+                        <input type="hidden" name="paket_id" value="<?= $paket['id'] ?>">
+                        
+                        <div class="text-left bg-amber-50 p-4 rounded-xl border border-amber-200">
+                            <label class="block text-sm font-bold text-amber-900 mb-2">Unggah Tanda Tangan Anda</label>
+                            <input type="file" name="signature_image" accept="image/png, image/jpeg" required class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-100 file:text-amber-700 hover:file:bg-amber-200 cursor-pointer">
+                            <p class="text-xs text-amber-700 mt-2">Format: PNG/JPG. Gambar tanda tangan akan diproses menjadi QR Code otomatis.</p>
+                        </div>
+
+                        <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menandatangani secara digital?');" class="w-full bg-emerald-500 hover:bg-emerald-600 shadow-emerald-200 text-white px-8 py-3 rounded-xl font-bold shadow-lg transition">
+                            <i class="fas fa-check-double mr-2"></i>Selesai (<?= $role ?>)
+                        </button>
+                    </form>
+                <?php endif; ?>
             <?php else: ?>
                 <div class="bg-slate-50 text-slate-600 border border-slate-200 rounded-xl p-4 mb-4">
                     <?php if ($hasSigned): ?>
