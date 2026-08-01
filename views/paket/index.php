@@ -128,6 +128,13 @@ $role = getRole();
                                 <span class="text-slate-400">&bull;</span>
                                 <span class="text-slate-500 truncate max-w-[150px]"><?= e($p['jenis_pengadaan']) ?></span>
                             </div>
+                            <?php if (isset($p['metode_pengadaan']) && $p['metode_pengadaan'] === 'Manual (Dibuat PP)'): ?>
+                                <div class="mt-1.5">
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-50 text-blue-600 rounded text-[10px] font-semibold border border-blue-100">
+                                        <i class="fas fa-upload"></i> Manual (Dibuat PP)
+                                    </span>
+                                </div>
+                            <?php endif; ?>
                         </td>
                         <td class="px-6 py-4 font-semibold text-slate-700">
                             <?= formatRupiah($p['pagu']) ?>

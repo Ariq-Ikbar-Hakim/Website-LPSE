@@ -288,4 +288,13 @@ class Paket
         $stmt->close();
         return $ok;
     }
+
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM paket WHERE id = ?');
+        $stmt->bind_param('i', $id);
+        $ok = $stmt->execute();
+        $stmt->close();
+        return $ok;
+    }
 }

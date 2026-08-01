@@ -2,6 +2,24 @@
 $title = "Detail Paket: " . e($paket['nama_paket']);
 $tab = $_GET['tab'] ?? 'detail';
 $role = getRole();
+
+global $conn;
+$baModel = new BeritaAcara($conn);
+$sigModel = new Signature($conn);
+$ba = $baModel->findByPaketId($paket['id']);
+
+$lampiranModel = new Lampiran($conn);
+$lampiranHistoryAll = $lampiranModel->getAllHistoryByPaket($paket['id']);
+$hasApprovedLampiran = false;
+foreach ($lampiranHistoryAll as $l) {
+    if ($l['is_active'] && $l['status_validasi'] === 'disetujui') {
+        $hasApprovedLampiran = true;
+        break;
+    }
+}
+
+$isManualWaitingPPK = ($role === 'PPK' && $paket['status'] === 'disetujui' && $ba && $ba['jenis_ba'] === 'manual');
+
 ob_start();
 ?>
 
@@ -189,7 +207,7 @@ ob_start();
                     <h3 class="font-bold text-slate-800">Dokumen Lampiran Aktif</h3>
                 </div>
                 
-                <?php if ($role === 'PPK' && in_array($paket['status'], ['draft', 'perlu_revisi'])): ?>
+                <?php if ($role === 'PPK' && (in_array($paket['status'], ['draft', 'perlu_revisi']) || $isManualWaitingPPK)): ?>
                 <button onclick="document.getElementById('modalUpload').classList.remove('hidden')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition">
                     <i class="fas fa-upload mr-1"></i> Upload Lampiran
                 </button>
@@ -325,10 +343,6 @@ ob_start();
 
             <?php
             // Periksa status penandatanganan
-            global $conn;
-            $baModel = new BeritaAcara($conn);
-            $sigModel = new Signature($conn);
-            $ba = $baModel->findByPaketId($paket['id']);
             $hasSigned = false;
             $isComplete = ($paket['status'] === 'selesai');
             $canSign = false;
@@ -444,7 +458,13 @@ ob_start();
                             <p class="text-xs text-amber-700 mt-2">Format: PNG/JPG. Gambar tanda tangan akan diproses menjadi QR Code otomatis.</p>
                         </div>
 
-                        <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menandatangani secara digital?');" class="w-full bg-emerald-500 hover:bg-emerald-600 shadow-emerald-200 text-white px-8 py-3 rounded-xl font-bold shadow-lg transition">
+                        <?php
+                            $confirmMsg = "Apakah Anda yakin ingin menandatangani secara digital?";
+                            if ($role === 'PPK' && $ba && $ba['jenis_ba'] === 'manual' && !$hasApprovedLampiran) {
+                                $confirmMsg = "Apakah kamu yakin mau lanjut tanda tangan? Karena file lampirannya belum dicek oleh PP atau Admin. Pastikan dokumen sudah diverifikasi bersama.";
+                            }
+                        ?>
+                        <button type="submit" onclick="return confirm('<?= addslashes($confirmMsg) ?>');" class="w-full bg-emerald-500 hover:bg-emerald-600 shadow-emerald-200 text-white px-8 py-3 rounded-xl font-bold shadow-lg transition">
                             <i class="fas fa-check-double mr-2"></i>Selesai (<?= $role ?>)
                         </button>
                     </form>
